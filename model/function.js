@@ -7,63 +7,110 @@
 var jsonEstados = require('./estados_cidades.js')
 
 const getListaDeEstados = function () {
-    let estadosCidades = jsonEstados.estadosCidades;
-    let estados = estadosCidades.estados
+    let estados = jsonEstados.estadosCidades.estados;
     let ufArray = [];
 
-    estados.forEach(function(informacoesEstados){    
-         ufArray.push(informacoesEstados.sigla);
-   
-    })
-   
-    let informacaoFinal = { uf : ufArray, quantidade : ufArray.length}
+    estados.forEach(function (informacoesEstados) {
 
-     return informacaoFinal
+        ufArray.push(informacoesEstados.sigla);
+
+    })
+
+    let informacaoFinal = { uf: ufArray, quantidade: ufArray.length }
+
+    console.log(informacaoFinal)
 
 }
 
-const getDadosEstados = function (){
-    let estadosCidades = jsonEstados.estadosCidades;
-    let estados = estadosCidades.estados
-    let ufArray = [];
-    let descricaoArray = [];
-    let capitalArray = [];
-    let regiaoArray = [];
+const getDadosEstados = function (getSigla) {
+    let sigla = String(getSigla).toUpperCase();
+    let estados = jsonEstados.estadosCidades.estados;
+    let resultado = {};
 
-    estados.forEach(function(informacoesEstados){  
-        ufArray.push(informacoesEstados.sigla)
-        descricaoArray.push(informacoesEstados.nome)
-        capitalArray.push(informacoesEstados.capital)
-        regiaoArray.push(informacoesEstados.regiao)
-      
+    estados.forEach(function (informacoesEstado) {
+        if (informacoesEstado.sigla.includes(sigla)) {
+
+            resultado.uf = informacoesEstado.sigla
+            resultado.descricao = informacoesEstado.nome
+            resultado.capital = informacoesEstado.capital
+            resultado.regiao = informacoesEstado.regiao
+        }
     })
-   
-    let informacaoFinal = {uf : ufArray[1], descricao : descricaoArray[1], capital : capitalArray[1], regiao : regiaoArray[1] }
 
-    return informacaoFinal
+    console.log(informacaoFinal)
+}
 
+const getCapitalEstado = function (getSigla) {
+    let sigla = String(getSigla).toUpperCase();
+    let estados = jsonEstados.estadosCidades.estados;
+    let resultado = {};
+
+    estados.forEach(function (informacoesEstado) {
+        if (informacoesEstado.sigla.includes(sigla)) {
+
+            resultado.uf = informacoesEstado.sigla
+            resultado.descricao = informacoesEstado.nome
+            resultado.capital = informacoesEstado.capital
+
+        }
+
+    })
+    console.log(informacaoFinal)
+}
+
+const getEstadosRegiao = function (getRegiao) {
+    let regiao = String(getRegiao).toUpperCase();
+    let estados = jsonEstados.estadosCidades.estados;
+    let resultado = {};
+    let estadosPorRegiao = {};
+    let estadoInfo = [];
+
+
+    estados.forEach(function (getInfoEstados) {
+        if (getInfoEstados.regiao.includes(regiao)) {
+
+            estadosPorRegiao.uf = getInfoEstados.sigla
+            estadosPorRegiao.descricao = getInfoEstados.nome
+
+            estadoInfo.push(estadosPorRegiao)
+
+            resultado.regiao = getInfoEstados.regiao
+            resultado.estados = estadoInfo
+
+        }
+
+    })
+    console.log(estadosPorRegiao)
 
 }
 
-const getCapitalEstado = function (){
-    let estadosCidades = jsonEstados.estadosCidades;
-    let estados = estadosCidades.estados
-    let ufArray = [];
-    let descricaoArray = [];
-    let capitalArray = [];
+const getCidades = function (getSigla) {
+    let sigla = String(getSigla).toUpperCase();
+    let estados = jsonEstados.estadosCidades.estados;
+    let resultado = {};
+    let cidades = [];
+    let cidadesNome = estados[2]; 
 
-    estados.forEach(function(informacoesEstados){  
-        ufArray.push(informacoesEstados.sigla)
-        descricaoArray.push(informacoesEstados.nome)
-        capitalArray.push(informacoesEstados.capital)
-      
+    estados.forEach(function (informacoesEstado) {
+        if (informacoesEstado.sigla.includes(sigla)) {
+
+            cidades.push(informacoesEstado.cidades)
+
+            // resultado.uf = informacoesEstado.sigla
+            // resultado.descricao = informacoesEstado.nome
+            // resultado.capital = informacoesEstado.capital
+            // resultado.regiao = informacoesEstado.regiao
+        }
     })
-   
-    let informacaoFinal = {uf : ufArray[1], descricao : descricaoArray[1], capital : capitalArray[1] }
 
-    return informacaoFinal
+    console.log(cidadesNome)
+
 }
 
-getListaDeEstados();
-getDadosEstados();
-getCapitalEstado();
+// getListaDeEstados();
+// getDadosEstados();
+// getCapitalEstado();
+// getEstadosRegiao('Sudeste');
+
+getCidades('SP');
+
