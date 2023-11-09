@@ -85,7 +85,7 @@ const getEstadosRegiao = function (getRegiao) {
 
 const getCidades = function(getSigla){
     const estados = jsonEstados.estadosCidades.estados;
-    let sigla = getSigla.toUpperCase();
+    let sigla = String(getSigla).toUpperCase();
     let estadosCidades = {};
     let cidades = [];
     estadosCidades.cidades = cidades;
@@ -107,7 +107,7 @@ const getCidades = function(getSigla){
     console.log(estadosCidades)
 
 }
-const getCapitalPais = function(getCapital){
+const getCapitalPais = function(){
     const estados = jsonEstados.estadosCidades.estados
     let capitaisPais = {}
     let estadoInfo = []
