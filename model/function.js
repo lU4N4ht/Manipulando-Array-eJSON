@@ -61,56 +61,84 @@ const getCapitalEstado = function (getSigla) {
 const getEstadosRegiao = function (getRegiao) {
     let regiao = String(getRegiao).toUpperCase();
     let estados = jsonEstados.estadosCidades.estados;
-    let resultado = {};
     let estadosPorRegiao = {};
     let estadoInfo = [];
-
+    estadosPorRegiao.regiao = regiao;
+    estadosPorRegiao.estados = estadoInfo;
 
     estados.forEach(function (getInfoEstados) {
-        if (getInfoEstados.regiao.includes(regiao)) {
+        if ((getInfoEstados.regiao.toUpperCase()).includes(regiao)) {
 
-            estadosPorRegiao.uf = getInfoEstados.sigla
-            estadosPorRegiao.descricao = getInfoEstados.nome
-
-            estadoInfo.push(estadosPorRegiao)
-
-            resultado.regiao = getInfoEstados.regiao
-            resultado.estados = estadoInfo
+            let resultado = {};
+        
+            resultado.uf = getInfoEstados.sigla
+            resultado.descricao = getInfoEstados.nome
+            estadoInfo.push(resultado)
 
         }
 
     })
+
     console.log(estadosPorRegiao)
 
 }
 
-const getCidades = function (getSigla) {
-    let sigla = String(getSigla).toUpperCase();
-    let estados = jsonEstados.estadosCidades.estados;
-    let resultado = {};
+const getCidades = function(getSigla){
+    const estados = jsonEstados.estadosCidades.estados;
+    let sigla = getSigla.toUpperCase();
+    let estadosCidades = {};
     let cidades = [];
-    let cidadesNome = estados[2]; 
+    estadosCidades.cidades = cidades;
 
-    estados.forEach(function (informacoesEstado) {
-        if (informacoesEstado.sigla.includes(sigla)) {
 
-            cidades.push(informacoesEstado.cidades)
+    estados.forEach(function (getInfoEstados) {
+        if (getInfoEstados.sigla.includes(sigla)) {
 
-            // resultado.uf = informacoesEstado.sigla
-            // resultado.descricao = informacoesEstado.nome
-            // resultado.capital = informacoesEstado.capital
-            // resultado.regiao = informacoesEstado.regiao
+            estadosCidades.uf = getInfoEstados.sigla
+            estadosCidades.descricao = getInfoEstados.nome
+            estadosCidades.quantidade_cidades = getInfoEstados.cidades.length
+
+            getInfoEstados.cidades.forEach( function (cidadeNome) {
+                cidades.push(cidadeNome.nome)
+            })
         }
-    })
 
-    console.log(cidadesNome)
+    })
+    console.log(estadosCidades)
+
+}
+const getCapitalPais = function(getCapital){
+    const estados = jsonEstados.estadosCidades.estados
+    let capitaisPais = {}
+    let estadoInfo = []
+    capitaisPais.capitais = estadoInfo;
+
+
+    estados.forEach(function (getInfoEstados) {
+        if (getInfoEstados.capital_pais != undefined) {
+
+            let resultado = {};
+        
+            resultado.capital_atual = getInfoEstados.capital_pais.capital
+            resultado.uf = getInfoEstados.sigla
+            resultado.descricao = getInfoEstados.nome
+            resultado.capital = getInfoEstados.capital
+            resultado.regiao = getInfoEstados.regiao
+            resultado.capital_pais_ano_inicio =  getInfoEstados.capital_pais.ano_inicio
+            resultado.capital_pais_ano_termino =  getInfoEstados.capital_pais.ano_fim
+            estadoInfo.push(resultado)
+
+        }
+
+    })
+    console.log(capitaisPais)
 
 }
 
 // getListaDeEstados();
-// getDadosEstados();
-// getCapitalEstado();
-// getEstadosRegiao('Sudeste');
-
-getCidades('SP');
+// getDadosEstados('sp');
+// getCapitalEstado('sp');
+// getEstadosRegiao('sul');
+// getCidades('rj');
+// getCapitalPais();
 
