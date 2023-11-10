@@ -18,7 +18,7 @@ const getListaDeEstados = function () {
 
     let informacaoFinal = { uf: ufArray, quantidade: ufArray.length }
 
-    console.log(informacaoFinal)
+   return informacaoFinal;
 
 }
 
@@ -37,7 +37,7 @@ const getDadosEstados = function (getSigla) {
         }
     })
 
-    console.log(informacaoFinal)
+   return informacaoFinal;
 }
 
 const getCapitalEstado = function (getSigla) {
@@ -55,7 +55,7 @@ const getCapitalEstado = function (getSigla) {
         }
 
     })
-    console.log(informacaoFinal)
+    return informacaoFinal;
 }
 
 const getEstadosRegiao = function (getRegiao) {
@@ -79,7 +79,7 @@ const getEstadosRegiao = function (getRegiao) {
 
     })
 
-    console.log(estadosPorRegiao)
+    return estadosPorRegiao;
 
 }
 
@@ -104,7 +104,8 @@ const getCidades = function(getSigla){
         }
 
     })
-    console.log(estadosCidades)
+    
+    return estadosCidades;
 
 }
 const getCapitalPais = function(){
@@ -131,7 +132,7 @@ const getCapitalPais = function(){
         }
 
     })
-    console.log(capitaisPais)
+    return capitaisPais;
 
 }
 
