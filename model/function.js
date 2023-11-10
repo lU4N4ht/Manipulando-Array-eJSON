@@ -136,10 +136,13 @@ const getCapitalPais = function(){
 
 }
 
-// getListaDeEstados();
-// getDadosEstados('sp');
-// getCapitalEstado('sp');
-// getEstadosRegiao('sul');
-// getCidades('rj');
-// getCapitalPais();
+module.exports = {
+    getListaDeEstados,
+    getDadosEstados,
+    getCapitalEstado,
+    getEstadosRegiao,
+    getCidades,
+    getCapitalPais
+}
+
 
