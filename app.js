@@ -43,6 +43,7 @@ app.use((request, response, next) => {
 
     //Faz com que ele de sequência, indo pra próxima função
     next();
+
 })
 
 //EndPoints - pontos de parada quee a nossa API vai ter;
@@ -52,8 +53,79 @@ app.use((request, response, next) => {
 //Nomeando - definindo quem controla os metodos - função async de callback
 app.get('/estados/sigla', cors(), async function(request, response, next){
     let controleListaEstados = require('./model/function.js')
-    let estados = controleListaEstados.getCapitalPais();
+    let estados = controleListaEstados.getListaDeEstados();
     response.json(estados);
+    response.status(200);
+
+});
+
+
+//Dois pontos = a palavra uf nao é uma parte do endpoint, é criar uma variável para o endpoint
+//Endpoint: Retorna os dados do estado filtrado pela sigla
+app.get('/estado/sigla/:uf', cors(), async function(request, response, next){
+   //Recebe uma variável encaminhada por parametro na URL da requisição
+    let siglaEstado = request.params.uf
+    //Esse import poderia ser feito fora
+    let controleDadosEstados = require('./model/function.js');
+    let dadosEstado = controleDadosEstados.getDadosEstados(siglaEstado);
+
+    if(dadosEstado){
+        response.json(dadosEstado);
+        response.status(200);
+    } else{
+        response.status(404)
+        response.json({erro:'Não foi possível encontrar um item.'})
+    }
+});
+
+//Retorna informações da Capital filtrando pela sigla via query
+app.get('/capital/estado', cors(), async function(request, response, next){
+    //Recebe parametros via query, que são variaveis encaminhadas na URL da requisição (?uf=SP)
+     let siglaEstado = request.query.uf
+     let controleDadosEstados = require('./model/function.js');
+     let dadosCapital = controleDadosEstados.getCapitalEstado(siglaEstado);
+ 
+     if(dadosCapital){
+         response.json(dadosCapital);
+         response.status(200);
+     } else{
+         response.status(404)
+         response.json({erro:'Não foi possível encontrar um item.'})
+     }
+ });
+
+ app.get('/regiao/estado', cors(), async function(request, response, next){
+     let NomeRegiao = request.query.regiao
+     let controleDadosEstados = require('./model/function.js');
+     let dadosRegiao = controleDadosEstados.getEstadosRegiao(NomeRegiao);
+ 
+     if(dadosRegiao){
+         response.json(dadosRegiao);
+         response.status(200);
+     } else{
+         response.status(404)
+         response.json({erro:'Não foi possível encontrar um item.'})
+     }
+ });
+
+ app.get('/estados/cidades/sigla', cors(), async function(request, response, next){
+    let siglaEstado = request.query.uf
+    let controleDadosEstados = require('./model/function.js');
+    let dadosCidades = controleDadosEstados.getCidades(siglaEstado);
+
+    if(dadosCidades){
+        response.json(dadosCidades);
+        response.status(200);
+    } else{
+        response.status(404)
+        response.json({erro:'Não foi possível encontrar um item.'})
+    }
+});
+
+app.get('/capital/pais', cors(), async function(request, response, next){
+    let controleListaCapitais = require('./model/function.js')
+    let capitais = controleListaCapitais.getCapitalPais();
+    response.json(capitais);
     response.status(200);
 
 });

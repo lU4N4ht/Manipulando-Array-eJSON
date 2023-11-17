@@ -26,6 +26,7 @@ const getDadosEstados = function (getSigla) {
     let sigla = String(getSigla).toUpperCase();
     let estados = jsonEstados.estadosCidades.estados;
     let resultado = {};
+    let status = false;
 
     estados.forEach(function (informacoesEstado) {
         if (informacoesEstado.sigla.includes(sigla)) {
@@ -34,16 +35,22 @@ const getDadosEstados = function (getSigla) {
             resultado.descricao = informacoesEstado.nome
             resultado.capital = informacoesEstado.capital
             resultado.regiao = informacoesEstado.regiao
+            status = true;
         }
     })
-
-   return informacaoFinal;
+    if(status){ 
+        return resultado;
+    } else {
+        return false;
+    }
+   
 }
 
 const getCapitalEstado = function (getSigla) {
     let sigla = String(getSigla).toUpperCase();
     let estados = jsonEstados.estadosCidades.estados;
     let resultado = {};
+    let status = false;
 
     estados.forEach(function (informacoesEstado) {
         if (informacoesEstado.sigla.includes(sigla)) {
@@ -51,11 +58,15 @@ const getCapitalEstado = function (getSigla) {
             resultado.uf = informacoesEstado.sigla
             resultado.descricao = informacoesEstado.nome
             resultado.capital = informacoesEstado.capital
-
+            status = true;
         }
 
     })
-    return informacaoFinal;
+    if(status){ 
+        return resultado;
+    } else {
+        return false;
+    }
 }
 
 const getEstadosRegiao = function (getRegiao) {
@@ -63,6 +74,7 @@ const getEstadosRegiao = function (getRegiao) {
     let estados = jsonEstados.estadosCidades.estados;
     let estadosPorRegiao = {};
     let estadoInfo = [];
+    let status = false;
     estadosPorRegiao.regiao = regiao;
     estadosPorRegiao.estados = estadoInfo;
 
@@ -75,12 +87,16 @@ const getEstadosRegiao = function (getRegiao) {
             resultado.descricao = getInfoEstados.nome
             estadoInfo.push(resultado)
 
+        status = true;
+
         }
 
     })
-
-    return estadosPorRegiao;
-
+    if(status){ 
+        return estadosPorRegiao;
+    } else {
+        return false;
+    }
 }
 
 const getCidades = function(getSigla){
@@ -89,6 +105,7 @@ const getCidades = function(getSigla){
     let estadosCidades = {};
     let cidades = [];
     estadosCidades.cidades = cidades;
+    let status = false;
 
 
     estados.forEach(function (getInfoEstados) {
@@ -101,11 +118,15 @@ const getCidades = function(getSigla){
             getInfoEstados.cidades.forEach( function (cidadeNome) {
                 cidades.push(cidadeNome.nome)
             })
+            status = true
         }
 
     })
-    
-    return estadosCidades;
+    if(status){ 
+        return estadosCidades;
+    } else {
+        return false;
+    }
 
 }
 const getCapitalPais = function(){
